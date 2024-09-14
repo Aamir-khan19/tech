@@ -4,6 +4,8 @@ import Spinner from '../components/Spinner';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
+import backendBaseUrl from "../../conf/conf";
+import conf from '../../conf/conf';
 
 const CreateBooks = () => {
   const [title, setTitle] = useState('');
@@ -21,13 +23,14 @@ const CreateBooks = () => {
     };
     setLoading(true);
     axios
-      .post('http://localhost:5555/books', data)
+      .post(`${conf.backendBaseUrl}/books`, data)
       .then(() => {
         setLoading(false);
         enqueueSnackbar('Book Created successfully', { variant: 'success' });
         navigate('/');
       })
       .catch((error) => {
+        console.log("erroeeore",`${backendBaseUrl}/books` )
         setLoading(false);
         // alert('An error happened. Please Chack console');
         enqueueSnackbar('Error', { variant: 'error' });
